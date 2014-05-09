@@ -12,4 +12,7 @@ sometimes it simply did not connect to the remote machine.
 Since I do not speak perl, I converted the script to Python.
 On the way, I also switched from forking to select().
 
+By the way, I used the script to get the initial repository from
+github on my VM.
+
 I would like to get your feedback on it.
