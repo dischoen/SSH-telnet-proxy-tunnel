@@ -24,15 +24,14 @@ Your company telnet proxy should expect a connect string in this format:
     connect <hostname> [port]
 
 Usage:
-* Copy tunnel.py on your machine, e.g. in ~/bin and make it executable.
-
-* In your ~/.ssh/config:
+1 Copy tunnel.py on your machine, e.g. in ~/bin and make it executable.
+2 In your ~/.ssh/config:
 
     Host ext1
     HostName ext1_and_more.noip.me
     ProxyCommand $HOME/bin/tunnel.py proxy.company.net 23 %h %p
 
-Use it:
+3 Use it:
 
     $ ssh ext1
 
