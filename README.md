@@ -17,13 +17,13 @@ github on my VM.
 
 I would like to get your feedback on it.
 
-# Requirements:
+## Requirements:
 
 Your company telnet proxy should expect a connect string in this format:
 
     connect <hostname> [port]
 
-# Usage:
+## Usage:
 
 1 Copy tunnel.py on your machine, e.g. in ~/bin and make it executable.
 2 In your ~/.ssh/config:
