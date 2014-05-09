@@ -11,15 +11,15 @@
 #
 # Converted to python/single process
 # by Dieter Schoen <dieter@schoen.or.at> May 2014.
-
+#
+# available from github.com/dischoen/SSH-telnet-proxy-tunnel.git
+#
 import sys
 import socket
 import os
 import time
 import select
 import fcntl
-
-log = open("./tunnel.log", "wb")
 
 proxy       = sys.argv[1]
 proxyport   = sys.argv[2]
@@ -38,47 +38,33 @@ s.send("CONNECT %s %s\r\n" % (destination, destport))
 true = True
 while true:
     (r,w,x) = select.select([sys.stdin,s],[],[])
-    #log.write("1 %s,%s,%s\n" %(r,w,x))
     for fd in r:
         if fd == s:
             data = s.recv(4096)
-            log.write("\n:A<%d>:" % len(data))
-            log.write(data)
-            log.write("\n:E:")
             for line in data.split('\n'):
-                log.write("\n:LINE:%s\n" % line)
                 if line.find("Connected") == 0:
-                    log.write("\n\nFound Connected\n\n")
                     true = False
                     continue
                 if true != True:
-                    log.write("\n:<==:%s\n" % line)
                     sys.stdout.write(line)
                     sys.stdout.write("\n")
                     sys.stdout.flush()
                     break
 
-log.write("\n:NOW2:\n")
-
 true = True
 while true:
     (r,w,x) = select.select([sys.stdin,s],[],[])
-    log.write("\n2 %s\n" % r)
     for fd in r:
         if fd == s:
             data = s.recv(4096)
             if not data:
                 true = False
                 break
-            log.write("\n:sA<%d>:" % len(data))
-            log.write(data)
-            log.write("\n:sE:")
             sys.stdout.write(data)
             sys.stdout.flush()
         if fd == sys.stdin:
-            log.write("\n:l@@:")
             data = sys.stdin.read(4096)
-            log.write("\n:lA@@<%d>:" % len(data))
-            log.write(data)
-            log.write("\n:lE:")
+            if not data:
+                true = False
+                break
             s.send(data)
