@@ -16,3 +16,24 @@ By the way, I used the script to get the initial repository from
 github on my VM.
 
 I would like to get your feedback on it.
+
+Requirement:
+
+Your company telnet proxy should expect a connect string in this format:
+
+    connect <hostname> [port]
+
+Usage:
+* Copy tunnel.py on your machine, e.g. in ~/bin and make it executable.
+
+* In your ~/.ssh/config:
+
+    Host ext1
+    HostName ext1_and_more.noip.me
+    ProxyCommand $HOME/bin/tunnel.py proxy.company.net 23 %h %p
+
+Use it:
+
+    $ ssh ext1
+
+I think, that's it.
